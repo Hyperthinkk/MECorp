@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="invoicereportview">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.delivery_note_custom_external_layout">
+						<div class="page">
+							<div class="row" style="border: 1px solid silver;">
+								<p style="background-color:#3c763d; padding-left:820px;color:white;">Invoice</p>
+								<div class="col-xs-12">
+									<div class="col-xs-4">
+										<p  style="margin-top:-10px; padding-left:-20px;" t-esc="o.company_id.name"/>
+										<address style="margin-top:-10px; padding-left:-5px;" t-field="o.company_id.partner_id"
+											t-field-options='{"widget": "contact", "fields": ["address","phone","email","website"], "no_marker": true}' />
+									</div>
+									<div class="col-xs-4">
+										<img
+											t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
+											style="max-height:5cm; max-width:5cm;" />
+									</div>
+									<div class="col-xs-4">
+										<table style="margin-top:-10px; padding-left:750px;">
+											<tr>
+												<td>Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+												<td style="padding-right:-20px;"><span t-field="o.date_invoice"/></td>
+											</tr>
+											<tr>
+												<td>Invoice #&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+												<td><span t-field="o.number" style="padding-right:1px;"/></td>
+											</tr>
+											<tr>
+												<td>CustomerID&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>Delivery Note#&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+												<td><span t-field="o.number" style="padding-right:1px;"/></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="col-xs-12" style="background-color:#3c763d;margin-top: -19px;color:white;">
+									<table>
+										<tr style="background-color:#3c763d;padding-left:-10px;height: 20px;color:white;">
+											<td style="padding-left:10px;">CUSTOMER</td>
+											<td style="padding-left:370px;">SHIP TO</td>
+										</tr>
+									</table>
+								</div>
+								<div class="col-xs-12">
+									<div class="col-xs-6">
+										<table>
+
+											<tr>
+												<td style="padding: 10px;padding-left: 0px;">
+													<address style="margin-top:-10px; padding-left:-5px;" t-field="o.company_id.partner_id"
+											t-field-options='{"widget": "contact", "fields": ["address","phone","email","website"], "no_marker": true}' />	
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-xs-6">
+										<table>
+											<tr>
+												<td style="padding-left: 0px;padding: 10px;">
+													<address style="margin-top:-10px; padding-left:-5px;" t-field="o.company_id.partner_id"
+											t-field-options='{"widget": "contact", "fields": ["address","phone","email","website"], "no_marker": true}' />
+												</td>
+											</tr>
+										</table>
+									</div>
+
+								<div class="col-xs-12" style="margin-top: -30px;">
+									<table style="margin-left:-31px;margin-right:-31px;">
+										<div class="col-xs-12">
+										    <tr style="background-color:#3c763d;color:white;">
+											    <td>ARTICLE NO&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>PRODUCT DESCRIPTION&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>CUSTOM TARRIF NO.&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>QUANTITY(pcs)&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>UNIT PRICE&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>WEIGHT(g))&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>NET WEIGHT(kgs))&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+											    <td>NET AMOUNT</td>
+										    </tr>
+										</div>
+									    
+									    <tr t-foreach="o.invoice_line_ids" t-as="data" style="text-align: center;">
+									    	<td style="border-right: 1px solid silver;">&#160;&#160;&#160;    <span t-esc="data.product_id.default_code" style="display: inline-block; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;   </td>
+
+									        <td style="border-right: 1px solid silver;">&#160;&#160;&#160;	  <span t-esc="data.name" style="display: inline-block; margin: 0px auto; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									    	</td>
+
+									        <td style="border-right: 1px solid silver;">&#160;&#160;&#160;    <span t-esc="o.origin" style="display: inline-block; margin: 0px auto; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									    	</td>
+
+									        <td style="border-right: 1px solid silver;">&#160;&#160;&#160;
+									        	<span t-esc="data.quantity" style="display: inline-block; margin: 0px auto; text-align: left;"/>
+
+									        	<span t-esc="data.uom_id.name" style="display: inline-block; padding: 10px; text-align: right;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									        </td>
+
+									        <td style="border-right: 1px solid silver;">
+									        	<span  t-esc="data.price_unit" style="display: block; margin: 0px auto; text-align: center;" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									        </td>
+
+									        <td style="border-right: 1px solid silver;">
+									        	<span t-esc="data.product_id.weight" style="display: block; margin: 0px auto; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									        </td>
+
+									        <td style="border-right: 1px solid silver;">
+									        	<span t-esc="data.product_id.net_weight" style="display: block; margin: 0px auto; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									        </td>
+
+									        <td style="border-right: 1px solid silver;">
+									        	<span  t-esc="data.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}' style="display: block; margin: 0px auto; text-align: center;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+									        </td>
+									    </tr>
+
+										
+									    <tr>
+									    	<td style="border-right: 1px solid silver;"></td>
+									    	<td style="border-right: 1px solid silver;"></td>
+									    	<td style="border-right: 1px solid silver;"></td>
+									    	<td style="border-right: 1px solid silver;"></td>
+									    	<td style="border-right: 1px solid silver;"></td>
+									    	<td style="border-right: 1px solid silver;">NET WEIGHT</td>
+									    	<td style="border-right: 1px solid silver;padding-left: 39px;">
+													<span t-esc="get_total" />kgs
+											</td>
+									    </tr>
+									    <tr style="border-top: 0px solid silver;" colspan="1">
+								    		<td style="width: 198px;background-color:#3c763d;color:white;">Payment Terms And Delivery</td>
+								    		<td style="background-color:#3c763d;border-right: 1px solid silver;color:white;"></td>
+								    		<td style="background-color:#3c763d;color:white;"></td>
+								    		<td style="background-color:#3c763d;color:white;"></td>
+								    		<td style="background-color:#3c763d;color:white;"></td>
+								    		<td>Net Amount</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;">
+								    			<span t-esc="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+								    		</td>
+									    </tr>
+								    	<tr>
+								    		<td style="width: 237px;">Payment to be made to the company's bank account within 120 days of reciept of goods</td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Total Tax</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;">
+								    			<span t-esc="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+								    		</td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;">C.I.F</td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Freight</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;"></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Insuarance</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;"></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Other(specify)</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;"></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Other(specify)</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;"></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td></td><td></td><td></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td>Total Levies</td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;"></td>
+								    	</tr>
+								    	<tr style="border-bottom: 0px solid silver;">
+								    		<td style="width: 237px;border-top: 1px solid silver;"></td>
+								    		<td style="border-top: 1px solid silver;border-right:1px solid silver;"></td>
+								    		<td style="border-top: 1px solid silver;"></td>
+								    		<td style="border-top: 1px solid silver;"></td>
+								    		<td style="border-right: 1px solid silver;border-top: 1px solid silver;"></td>
+								    		<td>Total Tax</td>
+								    		<td></td>
+								    		<td style="border:1px solid silver;border-bottom: 20px;">
+								    			<span t-esc="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+								    		</td>
+								    	</tr>
+								    	<tr style="height: 20px;">
+								    		<td style="border-bottom: 1px solid silver;background-color:#3c763d;color:white;">Company Stamp</td>
+								    		<td style="border-top: 0px solid silver;border-right:1px solid silver;border-bottom:1px solid silver;background-color:#3c763dcolor:white;;"></td>
+								    		<td style="border-bottom: 1px solid silver;background-color:#3c763d;color:white;"></td>
+								    		<td style="border-bottom: 1px solid silver;background-color:#3c763d;color:white;">Payment Details</td>
+								    		<td style="border-right: 1px solid silver;border-top: 0px solid silver;border-bottom: 1px solid silver;background-color:#3c763d;color:white;"></td>
+								    		<td></td>
+								    		<td>Total Value</td>
+								    		<td>
+								    			<span t-esc="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+								    		</td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Company:</td>
+								    		<td></td><td></td>
+								    		<td>Currency</td>
+								    		<td>
+								    			<span t-esc="o.currency_id.name"/>
+								    		</td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Bank:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Branch:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Country:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Swift Code:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>KES Acc. NO.:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Euro Acc. No.:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+								    	<tr>
+								    		<td style="width: 237px;"></td>
+								    		<td style="border-right: 1px solid silver;"></td>
+								    		<td></td>
+								    		<td>Dollar Acc. No.:</td>
+								    		<td></td><td></td><td></td><td></td>
+								    	</tr>
+									</table>
+								</div>
+							</div>
+		    			</div>
+					</div>
+				</t>
+			</t>
+		</t>
+		</template>
+		<!--template id="delivert_report_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="delivery_note_report.delivery_note_report_id" t-lang="doc.user_id.lang"/>
+                </t>
+            </t>
+        </template-->
+	</data>
+</odoo>
